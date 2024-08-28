@@ -1,0 +1,36 @@
+//create body sphere
+polySphere -radius 3 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+//setAttr "pSphere1.translateY" 3;
+move -relative -objectSpace -worldSpaceDistance 0 4.5 0 ;
+
+//create head sphere
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
+polySphere -e -radius 2;
+move -relative -objectSpace -worldSpaceDistance 0 9 0 ;
+
+//create platform
+//-r=radius, -sx=subdivisionsX, -sy=subdivisionsY, -sz=subdivisionsZ, -ax=axis, -rcp=roundCap, -cuv=createUVs, -cs=constructionHistory
+polyCylinder -r 3 -sx 6 -sy 1 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
+//-r=relative, -os=objectSpace, -wd=worldSpaceDistance
+move -r -os -wd 0 1 0;
+
+polySphere -r 1 -sx 10 -sy 10 -ax 0 1 0 -cuv 2 -ch 1;
+//-r=relative, -os=objectSpace, -fo=forceOrderXYZ
+rotate -r -os -fo 90 0 0 ;
+//-ws=worldSpace, -r=relative
+scale -ws -r 0.314 0.314 0.314 ;
+move -r -os -wd 0.537 1.881 -9.194 ;
+
+//-rr=returnRootsOnly
+duplicate -rr;
+move -r -os -wd -1.074 0 0 ;
+
+duplicate -smartTransform;
+move -r 1.611 -0.931597 -0.139287 ;
+scale -ws -r 2.056911 1 1 ;
+scale -ws -r 1 0.576155 1 ;
+
+//-a=angle, -ch=constructionHistory
+polySoftEdge -a 180 -ch 1 pSphere3;
+polySoftEdge -a 180 -ch 1 pSphere4;
+polySoftEdge -a 180 -ch 1 pSphere5;
