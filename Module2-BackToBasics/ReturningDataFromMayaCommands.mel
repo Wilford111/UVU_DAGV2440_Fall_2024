@@ -1,0 +1,4 @@
+string $object[];
+$object = `polyShpere -r 1 -sx 20 -sy 20 -ax 010 -cuv 2 -ch 1`;
+
+move -relative 0.903161 6.666118 -5.902749 $object[0];

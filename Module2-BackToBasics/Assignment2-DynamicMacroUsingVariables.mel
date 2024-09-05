@@ -1,0 +1,28 @@
+float $size = 3;
+float $rightAngle = 90;
+float $shrink = .5;
+
+polySphere -r $size -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1 ;
+move -r 0 $size 0 ;
+
+polySphere -r ($size-1) -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1 ;
+move -r 0 (($size * 2)+(($size-1)-.2)) 0 ;
+
+polyCone -r 1 -h 2 -sx 20 -sy 1 -sz 0 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
+rotate -r -os -fo $rightAngle 0 0 ;
+move -r 0 (($size * 2)+(($size-1)-.2)) ($size - .5) ;
+scale -ws -r $shrink $shrink 1;
+
+polyCylinder -r 1 -h 2 -sx 20 -sy 1 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
+move -r 0 ($size * 1.5) 0 ;
+rotate -r -os -fo 0 0 ($rightAngle * -1) ;
+scale -ws -r 1 $shrink $shrink;
+scale -ws -r ($size * 2) 1 1 ;
+
+polyCylinder -r 1 -h 2 -sx 20 -sy 1 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
+move -r 0 (($size * 2)+((($size - 1) * 2))+.6) ($shrink * -1) ;
+rotate -r -os -fo -25210 0 0 ;
+
+select -cl ;
+
+print("It's the new and improved snowman!");
