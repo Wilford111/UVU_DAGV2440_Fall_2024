@@ -2,6 +2,7 @@ float $size = 3;
 float $rightAngle = 90;
 float $shrink = .5;
 
+// -radius, -subdivisionsX, -subdivisionsY, -axis, -createUVs, -constructionHistory
 polySphere -r $size -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1 ;
 move -r 0 $size 0 ;
 
