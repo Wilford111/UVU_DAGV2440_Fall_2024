@@ -1,0 +1,20 @@
+// polyCube comment -w(width) -h(height) -d(depth) -sx-sy-sz(SubdivisionsX/Y/Z) -ax(axis) -cuv(createUVs) -ch(constructionHistory)
+// move comment -r(relative) -rpr(rotatePivotRelative) -os(objectSpace)
+// scale comment -ws(worldSpace) -r(relative)
+// duplicate comment -rr(returnRootsOnly)
+// rotate comment -r(relative) -os(objectSpace) -fo(forceOrderXYZ)
+
+proc GenerateStaircase(int $stairNum, float $width, float $height, float $depth, float $pivotX, float $moveUp, float $rotation)
+{
+    polyCube -w $width -h $height -d $depth -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1;
+    move -r $pivotX 0 0 pCube1.scalePivot pCube1.rotatePivot ;
+
+    for($i=0; $i < $stairNum; $i++)
+    {
+        duplicate -rr;
+        move -os -r 0 $moveUp ($depth * -1);
+        rotate -r -os -fo 0 $rotation 0 ;
+    }
+}
+
+GenerateStaircase(36, 4, 0.15, 1, 2, 0.15, -10);
