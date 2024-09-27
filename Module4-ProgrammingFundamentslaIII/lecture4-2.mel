@@ -1,0 +1,73 @@
+//Fortune Teller
+// -Lottery Number
+// -Bestest Friend
+// -Fortune
+// -Zodiac Sign
+
+
+// generate random lottery numbers
+global proc string LotteryNumbers()
+{
+    int $values[];
+    for ($i=0; $i < 7; $i++)
+    {
+        int $num = `rand 100`;
+        $values[size($values)] = $num;
+    }
+    return intArrayToString($values, " - ");
+}
+
+global proc BestestFriend(string $name)
+{
+    string $names[] = {"Dave", "Doug", "Clarence", "Mary", "Jane", "Tina", "Phil"};
+    int $size = size($names);
+    int $randNum = `rand $size`;
+    print ($name + ", Your new bestest friend will be named " + $names[$randNum] + "!\n");
+}
+
+global proc FortuneCookie()
+{
+    string $fortunes[] = {"Success is the sum of my unique visions realized by the sweat of perseverance.", 
+                            "You will spend old age in comfort and material wealth",
+                            "Impossible is a word only to be found in the dictionary of fools.",
+                            "The greatest risk is not taking one.",
+                            "Prosperity makes friends and adversity tries them.",
+                            "The joyful energy of the day will have a positive affect on you."};
+    int $randNum = `rand (size($fortunes))`;
+    print($fortunes[$randNum]+"\n");
+}
+
+global proc string Zodiac(int $birthYear)
+{
+    string $signs[] = {"Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep", "Monkey", "Rooster", "Dog", "Pig"};
+
+    int $index = ($birthYear - 4) % 12;
+
+    return $signs[$index];
+}
+
+global proc FortuneTeller(string $myName, int $myBirthYear, int $operation)
+{
+    if ($operation == 1)
+    {
+        print("Your lucky numbers for today are : " + LotteryNumbers() + "\n");
+    }
+    else if ($operation == 2)
+    {
+        BestestFriend($myName);
+    }
+    else if ($operation == 3)
+    {
+        FortuneCookie();
+    }
+    else if ($operation == 4)
+    {
+        print("Based on your birth year, " + $myBirthYear + ", your zodiac sign is " + Zodiac($myBirthYear) + ".\n");
+    }
+    else
+    {
+        print("Please input a valid operation type as a value, 1 through 4.\n");
+    }
+}
+
+FortuneTeller("Melissa", 1993, 1);
