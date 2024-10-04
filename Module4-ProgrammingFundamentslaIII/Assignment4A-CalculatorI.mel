@@ -47,8 +47,6 @@ proc float Divide(int $input[])
     return $sum;
 }
 
-print(Divide({15, 2}) + "\n");
-
 proc float Power(int $input[])
 {
     int $sum = 1;
@@ -82,4 +80,4 @@ proc float Median(float $input[])
         return $input[($size/2)];}
 }
 
-print(Median({15, 27, 14, 1, 5, 18}) + "\n");
+print(Add({15, 27}) + "\n");
