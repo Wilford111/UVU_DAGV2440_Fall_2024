@@ -1,0 +1,43 @@
+
+global proc RandomizerUI()
+{
+    string $mWindow = "mainWindow";
+
+    if (`window -exists $mWindow`)
+    {
+        deleteUI $mWindow;
+    }
+
+    $mWindow = `window -title "Position Randomizer"
+                        -widthHeight 500 300
+                        -resizeToFitChildren 1
+                        $mWindow`;
+    
+    string $mColumn1 = `columnLayout -parent $mWindow -adjustableColumn 1`;
+
+    //Row 1
+    string $mRow1 = `rowLayout -p $mColumn1 -numberOfColumns 2`;
+    text -p $mRow1 -label "Number of Duplicates: ";
+    optionVar -stringValue "dupField"  `textField -p $mRow1 -width 67`;
+
+    //Row 2
+    string $mRow2 = `rowLayout -p $mColumn1 -numberOfColumns 4`;
+    text -p $mRow2 -label "Minimum Range: ";
+    optionVar -stringValue "minXField" `textField -p $mRow2 -placeholderText "Min X"`;
+    optionVar -stringValue "minYField" `textField -p $mRow2 -placeholderText "Min Y"`;
+    optionVar -stringValue "minZField" `textField -p $mRow2 -placeholderText "Min Z"`;
+
+    //Row 3
+    string $mRow3 = `rowLayout -p $mColumn1 -numberOfColumns 4`;
+    text -p $mRow3 -label "Maximum Range: ";
+    optionVar -stringValue "maxXField" `textField -p $mRow3 -placeholderText "Max X" -width 94`;
+    optionVar -stringValue "maxYField" `textField -p $mRow3 -placeholderText "Max Y"`;
+    optionVar -stringValue "maxZField" `textField -p $mRow3 -placeholderText "Max Z"`;
+
+    //Row 4
+    button -p $mColumn1 -label "Confirm" -command "";
+
+    showWindow $mWindow;
+}
+
+RandomizerUI();

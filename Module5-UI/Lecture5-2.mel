@@ -1,0 +1,14 @@
+string $mWindow = `window`;
+string $mColumn = `columnLayout`;
+button -p $mColumn;
+button -p $mColumn;
+string $ageField = `intField -p $mColumn`;
+string $mRow = `rowLayout -numberOfColumns 3`;
+button -p $mRow;
+string $rColumn = `columnLayout -p $mRow`;
+button -p $rColumn;
+button -p $mRow;
+button -p $mColumn;
+button -p $rColumn;
+
+showWindow $mWindow;
