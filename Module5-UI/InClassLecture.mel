@@ -1,0 +1,22 @@
+// Get Selection (ls -selection);
+// $sels[]
+// for (int $i = 0; i < $numDups; i++)
+// {
+//      
+// }
+
+string $sels[] = `ls -selection`;
+print($sels);
+
+for (i = 0; i < size($sels); i++)
+{
+    for (j = 0; j < $numDups; j++)
+    {
+        $dup = duplicate(sels[i]);
+        // generate 3 random nums
+                                // xMin - xMax
+                                // yMin - yMax
+                                // zMin - zMax
+        // xForm -> move to random pos
+    }
+}

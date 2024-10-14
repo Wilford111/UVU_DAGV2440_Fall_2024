@@ -1,3 +1,50 @@
+global proc Randomizer(int $dupNum, float $xMin, float $yMin, float $zMin, float $xMax, float $yMax, float $zMax)
+{
+    string $sels[] = `ls -sl`;
+
+    for ($i = 0; $i < size($sels); $i++)
+    {
+        for ($j = 0; $j < $dupNum; $j++)
+        {
+            float $xRand = `rand $xMin $xMax`;
+            float $yRand = `rand $yMin $yMax`;
+            float $zRand = `rand $zMin $zMax`;
+
+            $dup = $sels[$i];
+            duplicate $dup;
+            move $xRand $yRand $zRand $dup;
+        }
+    }
+}
+
+global proc ButtonCmd()
+{
+    string $dupField = `optionVar -q "dupField"`;
+    string $xMinField = `optionVar -q "minXField"`;
+    string $yMinField = `optionVar -q "minYField"`;
+    string $zMinField = `optionVar -q "minZField"`;
+    string $xMaxField = `optionVar -q "maxXField"`;
+    string $yMaxField = `optionVar -q "maxYField"`;
+    string $zMaxField = `optionVar -q "maxZField"`;
+
+    string $dup = `textField -q -text $dupField`;
+    string $xMin = `textField -q -text $xMinField`;
+    string $yMin = `textField -q -text $yMinField`;
+    string $zMin = `textField -q -text $zMinField`;
+    string $xMax = `textField -q -text $xMaxField`;
+    string $yMax = `textField -q -text $yMaxField`;
+    string $zMax = `textField -q -text $zMaxField`;
+
+    int $dupNum = int($dup);
+    float $xMinF = float($xMin);
+    float $yMinF = float($yMin);
+    float $zMinF = float($zMin);
+    float $xMaxF = float($xMax);
+    float $yMaxF = float($yMax);
+    float $zMaxF = float($zMax);
+
+    Randomizer($dupNum, $xMinF, $yMinF, $zMinF, $xMaxF, $yMaxF, $zMaxF);
+}
 
 global proc RandomizerUI()
 {
@@ -23,19 +70,19 @@ global proc RandomizerUI()
     //Row 2
     string $mRow2 = `rowLayout -p $mColumn1 -numberOfColumns 4`;
     text -p $mRow2 -label "Minimum Range: ";
-    optionVar -stringValue "minXField" `textField -p $mRow2 -placeholderText "Min X"`;
-    optionVar -stringValue "minYField" `textField -p $mRow2 -placeholderText "Min Y"`;
-    optionVar -stringValue "minZField" `textField -p $mRow2 -placeholderText "Min Z"`;
+    optionVar -stringValue "minXField" `textField -p $mRow2 -placeholderText "Min X" -width 95`;
+    optionVar -stringValue "minYField" `textField -p $mRow2 -placeholderText "Min Y" -width 95`;
+    optionVar -stringValue "minZField" `textField -p $mRow2 -placeholderText "Min Z" -width 95`;
 
     //Row 3
     string $mRow3 = `rowLayout -p $mColumn1 -numberOfColumns 4`;
     text -p $mRow3 -label "Maximum Range: ";
     optionVar -stringValue "maxXField" `textField -p $mRow3 -placeholderText "Max X" -width 94`;
-    optionVar -stringValue "maxYField" `textField -p $mRow3 -placeholderText "Max Y"`;
-    optionVar -stringValue "maxZField" `textField -p $mRow3 -placeholderText "Max Z"`;
+    optionVar -stringValue "maxYField" `textField -p $mRow3 -placeholderText "Max Y" -width 95`;
+    optionVar -stringValue "maxZField" `textField -p $mRow3 -placeholderText "Max Z" -width 95`;
 
     //Row 4
-    button -p $mColumn1 -label "Confirm" -command "";
+    button -p $mColumn1 -label "Confirm" -command "ButtonCmd";
 
     showWindow $mWindow;
 }
