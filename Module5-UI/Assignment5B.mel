@@ -38,7 +38,6 @@ global proc float Add(float $input[])
     int $sum;
     for($i=0;$i<size($input);$i++)
     {
-        // $sum = $input[$i] + $input[$i-1];
         $sum += $input[$i];
     }
     return $sum;
