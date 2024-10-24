@@ -1,3 +1,114 @@
+global proc float Calculator(float $input[], int $oper1, int $oper2)
+{
+    if ($oper1 == 1)
+    {
+        return(Add($input));
+    }
+    else if ($oper1 == 2)
+    {
+        return(Subtract($input));
+    }
+    else if ($oper1 == 3)
+    {
+        return(Multiply($input));
+    }
+    else if ($oper1 == 4)
+    {
+        return(Divide($input));
+    }
+    else if ($oper1 == 0)
+    {
+        if ($oper2 == 1)
+        {
+            return (Power($input));
+        }
+        else if ($oper2 == 2)
+        {
+            return (Mean($input));
+        }
+        else if ($oper2 == 3)
+        {
+            return (Median($input));
+        }
+    }
+}
+
+global proc float Add(float $input[])
+{
+    int $sum;
+    for($i=0;$i<size($input);$i++)
+    {
+        // $sum = $input[$i] + $input[$i-1];
+        $sum += $input[$i];
+    }
+    return $sum;
+}
+
+global proc float Subtract(float $input[])
+{
+    int $sum;
+    for($i=1; $i<size($input); $i++)
+    {
+        $sum -= $input[$i];
+    }
+    return ($input[0] + $sum);
+}
+
+global proc float Multiply(float $input[])
+{
+    int $sum = 1;
+    for($i=0;$i<size($input);$i++)
+    {
+        $sum *= $input[$i];
+    }
+    return $sum;
+}
+
+global proc float Divide(float $input[])
+{
+    float $sum = $input[0];
+    for($i=1;$i<size($input);$i++)
+    {
+        $sum /= $input[$i];
+    }
+    return $sum;
+}
+
+global proc float Power(float $input[])
+{
+    int $sum = 1;
+    for($i=0; $i<$input[1]; $i++)
+    {
+        $sum *= $input[0];
+    }
+    return $sum;
+}
+
+global proc float Mean(float $input[])
+{
+    float $sum;
+    for($i=0;$i<size($input);$i++)
+    {
+        $sum += $input[$i];
+    }
+    return $sum / size($input);
+}
+
+global proc float Median(float $input[])
+{
+    $input = `sort($input)`;
+    int $size = `size($input)`;
+
+    if($size % 2 == 0){
+        int $num1 = ($size/2);
+        int $num2 = ($size/2)-1;
+        return ((($input[$num1])+($input[$num2]))/2);}
+    else{
+        return $input[($size/2)];}
+}
+
+////////////////////////////////////////////////////////////////////
+
 global proc ButtonCmd()
 {
     string $inputField = `optionVar -q "input"`;
@@ -5,14 +116,22 @@ global proc ButtonCmd()
     string $operField2 = `optionVar -q "calcOperation2"`;
     string $resultField = `optionVar -q "Result"`;
 
-    string $input = `textField -q -text $inputField`;
+    string $inputT = `textField -q -text $inputField`;
     int $oper1 = `radioButtonGrp -q -select $operField1`;
     int $oper2 = `radioButtonGrp -q -select $operField2`;
 
-    // Am I supposed to do something here?
+    string $inputL[];
+    tokenizeList($inputT, $inputL);
 
-    print($input + "\n" + $oper1 + "\n" + $oper2 + "\n");
-    textField -e -text $input $resultField;
+    float $input[];
+    for($str in $inputL)
+    {
+        int $index = size($input);
+        $input[$index] = float($str);
+    }
+
+    float $result = Calculator($input, $oper1, $oper2);
+    textField -e -text $result $resultField;
 }
 
 global proc CalculatorUI()
@@ -32,7 +151,9 @@ global proc CalculatorUI()
     string $mColumn1 = `columnLayout -parent $cWindow -adjustableColumn 1`;
     text -p $mColumn1 -label "";
 
-    text -p $mColumn1 -label "Type the numbers you'd like to calculate, separated by a comma.";
+    text -p $mColumn1 -label "Type the numbers you'd like to calculate";
+
+    string $mRow1 = `rowLayout -p $mColumn1 -numberOfColumns 6`;
     optionVar -stringValue "input" `textField -p $mColumn1`;
     text -p $mColumn1 -label "";
 
@@ -50,3 +171,6 @@ global proc CalculatorUI()
 }
 
 CalculatorUI();
+
+// Right click script, click "Send MEL Code to Maya". Type in whatever numbers you want, separated by a space.
+// Click on whatever math function you want, then click "Confirm". Watch as the magic happens!
