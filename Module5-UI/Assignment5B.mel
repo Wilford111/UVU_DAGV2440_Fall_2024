@@ -1,0 +1,52 @@
+global proc ButtonCmd()
+{
+    string $inputField = `optionVar -q "input"`;
+    string $operField1 = `optionVar -q "calcOperation1"`;
+    string $operField2 = `optionVar -q "calcOperation2"`;
+    string $resultField = `optionVar -q "Result"`;
+
+    string $input = `textField -q -text $inputField`;
+    int $oper1 = `radioButtonGrp -q -select $operField1`;
+    int $oper2 = `radioButtonGrp -q -select $operField2`;
+
+    // Am I supposed to do something here?
+
+    print($input + "\n" + $oper1 + "\n" + $oper2 + "\n");
+    textField -e -text $input $resultField;
+}
+
+global proc CalculatorUI()
+{
+    string $cWindow = "calcWindow";
+
+    if (`window -exists $cWindow`)
+    {
+        deleteUI $cWindow;
+    }
+
+    $cWindow = `window -title "Maya Calculator"
+                -widthHeight 300 175
+                -resizeToFitChildren 1
+                $cWindow`;
+    
+    string $mColumn1 = `columnLayout -parent $cWindow -adjustableColumn 1`;
+    text -p $mColumn1 -label "";
+
+    text -p $mColumn1 -label "Type the numbers you'd like to calculate, separated by a comma.";
+    optionVar -stringValue "input" `textField -p $mColumn1`;
+    text -p $mColumn1 -label "";
+
+    string $calcOperation = `radioButtonGrp -parent $mColumn1 -visible 0`;
+    optionVar -stringValue "calcOperation1" `radioButtonGrp -parent $mColumn1 -numberOfRadioButtons 4 -shareCollection $calcOperation -labelArray4 "Add" "Subtract" "Multiply" "Divide"`;
+    optionVar -stringValue "calcOperation2" `radioButtonGrp -parent $mColumn1 -numberOfRadioButtons 3 -shareCollection $calcOperation -labelArray3 "Power" "Mean" "Median"`;
+    text -p $mColumn1 -label "";
+
+    button -p $mColumn1 -label "Confirm" -command "ButtonCmd";
+    text -p $mColumn1 -label "";
+
+    optionVar -stringValue "Result" `textField -parent $mColumn1 -editable 0`;
+
+    showWindow $cWindow;
+}
+
+CalculatorUI();
