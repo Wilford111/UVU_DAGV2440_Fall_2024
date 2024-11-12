@@ -25,3 +25,11 @@ asdf.move(1.611,-0.931597,-0.139287, r=True)
 asdf.scale(2.056911,1,1, ws=True, r=True)
 asdf.scale(1,0.576155,1, ws=True, r=True)
 asdf.polySoftEdge(a=180, ch=1, name='pSphere5')
+
+# print (asdf.listRelatives('L_Arm_02_Jnt', parent=True) [0])
+
+# txt = 'L_Arm_01_Jnt'
+
+# txt2 = (txt.rpartition('_')[0])
+# txt2 = '%s_Ctrl' %txt2
+# print(txt2)
